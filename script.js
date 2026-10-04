@@ -1,115 +1,178 @@
-// =====================================================================
-//  ČIA ĮKLIJUOK SAVO GOOGLE APPS SCRIPT NUORODĄ (žr. instrukcijas)
-// =====================================================================
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwTN1kDa_5JhrMIckoXCoP8w46DRGC9ktL8rxd5c8zxFWdeBWuEJ2bGP-4SCXiBEZO10w/exec';
+// Google Sheets nuoroda yra faile config.js, vertimai – faile lang.js
 
 
-// ---------- Demo gyvūnai kortelėje (galima keisti) ----------
+// =====================================================================
+//  DEMONSTRACINĖS KORTELĖS
+//  Nuotraukas įkelk į images/ (pupa.jpg, murkis.jpg, rudis.jpg, snaige.jpg, bosas.jpg).
+//  Kiekvienas tekstas rašomas dviem kalbomis: [lietuviškai, angliškai].
+// =====================================================================
 const pets = [
-  { name: 'Pupa',   emoji: '🐕', meta: 'Šuo · 2 m. · Vidutinė', tags: ['Tinka su vaikais', 'Sterilizuota'], color: ['#F6A15B', '#E9743A'] },
-  { name: 'Murkis', emoji: '🐈', meta: 'Katinas · 5 m.',         tags: ['Ramus', 'Mėgsta glostytis'],     color: ['#C9A27E', '#9C7655'] },
-  { name: 'Rudis',  emoji: '🐶', meta: 'Šuo · 8 m. · Didelis',   tags: ['Senjoras', 'Ieško ramių namų'],  color: ['#F2C26B', '#DE9A34'] },
-  { name: 'Snaigė', emoji: '🐱', meta: 'Katė · 1 m.',            tags: ['Žaisminga', 'Tinka laikinai globai'], color: ['#B9C7D9', '#8597B0'] },
+  { name: 'Pupa',   age: 2, where: ['Šuo iš Kauno', 'Dog from Kaunas'],
+    tags: [['Tinka su vaikais', 'Good with kids'], ['Sterilizuota', 'Spayed']],
+    photo: 'images/pupa.jpg', emoji: '🐕', bg: '#FFB37A' },
+  { name: 'Murkis', age: 5, where: ['Katinas iš Vilniaus', 'Cat from Vilnius'],
+    tags: [['Ramus', 'Calm'], ['Mėgsta glostytis', 'Loves cuddles']],
+    photo: 'images/murkis.jpg', emoji: '🐈', bg: '#C9B8FF' },
+  { name: 'Rudis',  age: 8, where: ['Šuo iš Alytaus', 'Dog from Alytus'],
+    tags: [['Senjoras', 'Senior'], ['Ieško ramių namų', 'Looking for a quiet home']],
+    photo: 'images/rudis.jpg', emoji: '🐶', bg: '#FFE27A' },
+  { name: 'Snaigė', age: 1, where: ['Katė iš Klaipėdos', 'Cat from Klaipėda'],
+    tags: [['Žaisminga', 'Playful'], ['Tinka laikinai globai', 'Fine for fostering']],
+    photo: 'images/snaige.jpg', emoji: '🐱', bg: '#9EE6C8' },
+  { name: 'Bosas',  age: 4, where: ['Šuo iš Šiaulių', 'Dog from Šiauliai'],
+    tags: [['Energingas', 'Energetic'], ['Mėgsta bėgioti', 'Loves running']],
+    photo: 'images/bosas.jpg', emoji: '🦮', bg: '#FFC2DD' },
 ];
 
-const stack = document.getElementById('cardStack');
-const likeCountEl = document.getElementById('likeCount');
-const matchPop = document.getElementById('matchPop');
-let current = 0;
+const L = pair => pair[currentLang === 'en' ? 1 : 0];   // pasirenka tekstą pagal kalbą
+
+const deck = document.getElementById('deck');
+const statusEl = document.getElementById('deckStatus');
+const matchEl = document.getElementById('match');
+const matchText = document.getElementById('matchText');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let index = 0;      // kuri kortelė viršuje
 let likes = 0;
 let busy = false;
 
-function makeCard(pet) {
-  const card = document.createElement('div');
-  card.className = 'pet-card';
-  card.style.background = `linear-gradient(160deg, ${pet.color[0]}, ${pet.color[1]})`;
-  card.innerHTML = `
-    <div class="pet-emoji">${pet.emoji}</div>
+function cardHTML(pet) {
+  return `
+    <div class="pet-fallback" style="background:${pet.bg}">${pet.emoji}</div>
+    <img class="pet-photo" src="${pet.photo}" alt="" draggable="false" onerror="this.remove()">
+    <span class="stamp stamp-yes">${currentLang === 'en' ? 'Yes!' : 'Taip!'}</span>
+    <span class="stamp stamp-no">${currentLang === 'en' ? 'Nope' : 'Ne'}</span>
     <div class="pet-info">
-      <h4>${pet.name}</h4>
-      <div class="pet-meta">${pet.meta}</div>
-      <div class="tags">${pet.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      <p class="pet-name">${pet.name}, ${t('age', { n: pet.age })}</p>
+      <p class="pet-where">${L(pet.where)}</p>
+      <div class="pet-tags">${pet.tags.map(tag => `<span>${L(tag)}</span>`).join('')}</div>
     </div>`;
-  return card;
 }
 
-function renderCards() {
-  stack.innerHTML = '';
-  const next = makeCard(pets[(current + 1) % pets.length]);
-  next.classList.add('behind');
-  const top = makeCard(pets[current % pets.length]);
-  stack.append(next, top);
+// Nupiešia 3 viršutines korteles
+function renderDeck(firstTime) {
+  deck.innerHTML = '';
+  for (let depth = 2; depth >= 0; depth--) {
+    const pet = pets[(index + depth) % pets.length];
+    const card = document.createElement('div');
+    card.className = 'pet-card';
+    card.dataset.depth = depth;
+    card.innerHTML = cardHTML(pet);
+    if (firstTime && !reduceMotion) {
+      card.classList.add('dealing');
+      setTimeout(() => card.classList.remove('dealing'), 150 + (2 - depth) * 140);
+    }
+    if (depth === 0) {
+      card.classList.add('is-top');
+      card.setAttribute('aria-label', `${pet.name}, ${t('age', { n: pet.age })}. ${L(pet.where)}.`);
+      enableDrag(card);
+    }
+    deck.appendChild(card);
+  }
+}
+
+// Tempimas pele arba pirštu
+function enableDrag(card) {
+  const yes = card.querySelector('.stamp-yes');
+  const no = card.querySelector('.stamp-no');
+  let startX = 0, startY = 0, dx = 0, dragging = false;
+
+  card.addEventListener('pointerdown', e => {
+    if (busy) return;
+    dragging = true; dx = 0;
+    startX = e.clientX; startY = e.clientY;
+    card.setPointerCapture(e.pointerId);
+    card.style.transition = 'none';
+  });
+
+  card.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    dx = e.clientX - startX;
+    const dy = (e.clientY - startY) * 0.25;
+    card.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx / 16}deg)`;
+    yes.style.opacity = Math.min(Math.max(dx / 90, 0), 1);
+    no.style.opacity = Math.min(Math.max(-dx / 90, 0), 1);
+  });
+
+  const end = () => {
+    if (!dragging) return;
+    dragging = false;
+    card.style.transition = '';
+    if (Math.abs(dx) > 100) {
+      decide(dx > 0);
+    } else {
+      card.style.transform = '';
+      yes.style.opacity = 0; no.style.opacity = 0;
+    }
+  };
+  card.addEventListener('pointerup', end);
+  card.addEventListener('pointercancel', end);
 }
 
 function decide(liked) {
-  if (busy) return;
+  if (busy || !matchEl.hidden) return;
   busy = true;
-  const top = stack.lastElementChild;
-  const behind = stack.firstElementChild;
-  top.classList.add(liked ? 'out-right' : 'out-left');
-  behind.classList.remove('behind');
+  const card = deck.querySelector('.is-top');
+  const pet = pets[index % pets.length];
+  card.querySelector(liked ? '.stamp-yes' : '.stamp-no').style.opacity = 1;
+  card.style.transform = `translateX(${liked ? 160 : -160}%) rotate(${liked ? 24 : -24}deg)`;
+  card.style.opacity = 0;
+
+  // likusios kortelės pasislenka į priekį
+  deck.querySelectorAll('.pet-card:not(.is-top)').forEach(c => c.dataset.depth = c.dataset.depth - 1);
+
   if (liked) {
     likes++;
-    likeCountEl.textContent = likes;
-    matchPop.classList.add('show');
-    setTimeout(() => matchPop.classList.remove('show'), 900);
+    statusEl.textContent = t('liked', { name: pet.name });
+    if (likes % 2 === 0) {
+      setTimeout(() => {
+        matchText.textContent = t('match', { name: pet.name });
+        matchEl.hidden = false;
+        document.getElementById('matchClose').focus();
+      }, 900);
+    }
+  } else {
+    statusEl.textContent = t('nope');
   }
+
   setTimeout(() => {
-    current++;
-    renderCards();
+    index++;
+    renderDeck(false);
     busy = false;
-  }, 450);
+  }, 360);
 }
 
-if (stack) {
-  renderCards();
+if (deck) {
+  renderDeck(true);
   document.getElementById('btnNo').addEventListener('click', () => decide(false));
   document.getElementById('btnYes').addEventListener('click', () => decide(true));
-}
-
-
-// ---------- Animacija slenkant + skaičiai ----------
-function animateCount(el) {
-  const target = +el.dataset.target;
-  const duration = 1400;
-  const start = performance.now();
-  function tick(now) {
-    const p = Math.min((now - start) / duration, 1);
-    el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
-    if (p < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-}
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add('visible');
-    entry.target.querySelectorAll('.count').forEach(animateCount);
-    observer.unobserve(entry.target);
+  deck.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') decide(true);
+    if (e.key === 'ArrowLeft') decide(false);
   });
-}, { threshold: 0.15 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-
-// ---------- Ekranų slankiklio taškeliai (telefone) ----------
-const screens = document.getElementById('screens');
-const dotsBox = document.getElementById('screenDots');
-if (screens && dotsBox) {
-  const items = screens.querySelectorAll('.screen');
-  items.forEach((_, i) => {
-    const dot = document.createElement('span');
-    if (i === 0) dot.classList.add('active');
-    dotsBox.appendChild(dot);
-  });
-  screens.addEventListener('scroll', () => {
-    const index = Math.round(screens.scrollLeft / (items[0].offsetWidth + 24));
-    dotsBox.querySelectorAll('span').forEach((d, i) => d.classList.toggle('active', i === index));
+  document.getElementById('matchClose').addEventListener('click', () => {
+    matchEl.hidden = true;
+    statusEl.textContent = t('status_initial');
+    deck.focus();
   });
 }
 
 
-// ---------- Registracijos pasirinkimas ----------
+// =====================================================================
+//  „PRIDĖTI PRIE PRADŽIOS EKRANO“ INSTRUKCIJOS
+// =====================================================================
+const osButtons = document.querySelectorAll('.os-btn');
+function showOs(os) {
+  osButtons.forEach(b => b.classList.toggle('active', b.dataset.os === os));
+  document.querySelectorAll('[data-os-steps]').forEach(list => list.hidden = list.dataset.osSteps !== os);
+}
+osButtons.forEach(b => b.addEventListener('click', () => showOs(b.dataset.os)));
+if (/android/i.test(navigator.userAgent)) showOs('android');
+
+
+// =====================================================================
+//  REGISTRACIJA
+// =====================================================================
 const tabs = document.querySelectorAll('.choice-btn');
 const forms = {
   adopter: document.getElementById('form-adopter'),
@@ -117,6 +180,7 @@ const forms = {
 };
 const thanks = document.getElementById('thanks');
 const formError = document.getElementById('formError');
+let lastThanksType = 'adopter';
 
 function showTab(name) {
   tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
@@ -124,15 +188,8 @@ function showTab(name) {
   thanks.hidden = true;
   formError.hidden = true;
 }
-tabs.forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+tabs.forEach(tab => tab.addEventListener('click', () => showTab(tab.dataset.tab)));
 
-// Mygtukai su data-choice atidaro reikiamą formą
-document.querySelectorAll('[data-choice]').forEach(link => {
-  link.addEventListener('click', () => showTab(link.dataset.choice));
-});
-
-
-// ---------- Formų siuntimas į Google Sheets ----------
 Object.values(forms).forEach(form => {
   form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -140,9 +197,9 @@ Object.values(forms).forEach(form => {
     if (field('website')) return; // apsauga nuo botų
 
     const button = form.querySelector('button[type=submit]');
-    const originalText = button.textContent;
+    const originalHTML = button.innerHTML;
     button.disabled = true;
-    button.textContent = 'Siunčiama...';
+    button.textContent = t('sending');
     formError.hidden = true;
 
     const data = new URLSearchParams({
@@ -153,23 +210,21 @@ Object.values(forms).forEach(form => {
     });
 
     try {
-      if (SHEET_URL.startsWith('http')) {
+      if (typeof SHEET_URL !== 'undefined' && SHEET_URL.startsWith('http')) {
         await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: data });
       } else {
-        console.warn('SHEET_URL dar neįklijuota – duomenys niekur neišsiųsti.');
+        console.warn('SHEET_URL neįklijuota faile config.js – duomenys niekur neišsiųsti.');
       }
       form.reset();
       form.hidden = true;
-      document.getElementById('thanksText').textContent =
-        form.dataset.type === 'shelter'
-          ? 'Gavome jūsų kontaktus – netrukus susisieksime!'
-          : 'Pranešime, kai Augintimus startuos. 🐶🐱';
+      lastThanksType = form.dataset.type;
+      document.getElementById('thanksText').textContent = t('thanks_' + lastThanksType);
       thanks.hidden = false;
     } catch (err) {
       formError.hidden = false;
     } finally {
       button.disabled = false;
-      button.textContent = originalText;
+      button.innerHTML = originalHTML;
     }
   });
 });
@@ -179,25 +234,28 @@ document.getElementById('againBtn').addEventListener('click', () => {
 });
 
 
-// ---------- Privatumo langas ----------
+// =====================================================================
+//  PASPAUDIMAI (veikia ir pakeitus kalbą)
+// =====================================================================
 const privacy = document.getElementById('privacy');
-document.querySelectorAll('.open-privacy').forEach(link => {
-  link.addEventListener('click', e => { e.preventDefault(); privacy.showModal(); });
+document.addEventListener('click', e => {
+  const privacyLink = e.target.closest('.open-privacy');
+  if (privacyLink) { e.preventDefault(); privacy.showModal(); return; }
+  const choiceLink = e.target.closest('[data-choice]');
+  if (choiceLink) showTab(choiceLink.dataset.choice);
 });
 document.getElementById('closePrivacy').addEventListener('click', () => privacy.close());
 privacy.addEventListener('click', e => { if (e.target === privacy) privacy.close(); });
 
-
-// ---------- Metai poraštėje ----------
 document.getElementById('year').textContent = new Date().getFullYear();
 
 
-// ---------- „Pridėti prie pradžios ekrano“ instrukcijos ----------
-const osButtons = document.querySelectorAll('.os-btn');
-function showOs(os) {
-  osButtons.forEach(b => b.classList.toggle('active', b.dataset.os === os));
-  document.querySelectorAll('[data-os-steps]').forEach(list => list.hidden = list.dataset.osSteps !== os);
-}
-osButtons.forEach(b => b.addEventListener('click', () => showOs(b.dataset.os)));
-// Automatiškai parodo Android instrukcijas Android telefonuose
-if (/android/i.test(navigator.userAgent)) showOs('android');
+// =====================================================================
+//  KALBOS PAKEITIMAS – atnaujina korteles ir pranešimus
+// =====================================================================
+document.addEventListener('langchange', () => {
+  if (deck && !busy) renderDeck(false);
+  statusEl.textContent = t('status_initial');
+  if (!matchEl.hidden) matchEl.hidden = true;
+  document.getElementById('thanksText').textContent = t('thanks_' + lastThanksType);
+});

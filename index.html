@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Augintimus – rask savo augintinį</title>
-  <meta name="description" content="Augintimus – programėlė naršyklėje, kurios nereikia atsisiųsti. Ji suveda prieglaudų gyvūnus su žmonėmis, ieškančiais draugo ar norinčiais tapti laikinaisiais globėjais. Startuojame 2027 m.">
+  <title data-i18n="page_title">Augintimus – susipažink su prieglaudos gyvūnu</title>
+  <meta name="description" data-i18n-attr="content:meta_desc" content="Augintimus – kaip pažinčių programėlė, tik prieglaudų šunims ir katėms. Veiks naršyklėje, nieko nereikės atsisiųsti. Startuojame 2027 m.">
+  <meta name="theme-color" content="#FFD3E6">
   <link rel="icon" href="images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ===================== VIRŠUTINĖ JUOSTA ===================== -->
+  <!-- ============ VIRŠUTINĖ JUOSTA ============ -->
   <header class="nav">
-    <div class="container nav-inner">
-      <a href="#" class="brand">
-        <img class="logo-img" src="images/logo.png" alt="Augintimus logotipas"
-             onerror="this.hidden=true; this.nextElementSibling.hidden=false">
+    <div class="wrap nav-inner">
+      <a href="#" class="brand" aria-label="Augintimus – į pradžią" data-i18n-attr="aria-label:a_home">
+        <img class="logo-img" src="images/logo.png" alt=""
+             onerror="this.hidden=true; this.nextElementSibling.removeAttribute('hidden')">
         <svg class="logo-fallback" hidden viewBox="0 0 64 64" aria-hidden="true">
           <path d="M14 22 L18 8 L26 17 M50 22 L46 8 L38 17" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
           <path d="M8 30 L32 10 L56 30 V56 H8 Z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/>
@@ -28,365 +29,310 @@
         </svg>
         <span>Augintimus</span>
       </a>
-      <nav class="nav-links">
-        <a href="#kaip-veikia">Kaip veikia</a>
-        <a href="#be-atsisiuntimo">Be atsisiuntimo</a>
-        <a href="#prieglaudoms">Prieglaudoms</a>
-        <a href="#duk">DUK</a>
+      <nav class="nav-links" aria-label="Puslapio skiltys" data-i18n-attr="aria-label:a_sections">
+        <a href="#kaip-veikia" data-i18n="nav_how">Kaip veikia</a>
+        <a href="#telefone" data-i18n="nav_phone">Telefone ir kompiuteryje</a>
+        <a href="#prieglaudoms" data-i18n="nav_shelters">Prieglaudoms</a>
+        <a href="#duk" data-i18n="nav_faq">DUK</a>
       </nav>
-      <a href="#registracija" class="btn btn-small" data-choice="adopter">Registruotis</a>
+      <div class="nav-actions">
+      <div class="lang-switch" role="group" aria-label="Kalba / Language">
+        <button class="lang-btn active" data-lang="lt" aria-pressed="true">LT</button>
+        <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a href="#registracija" class="btn btn-plum btn-small" data-choice="adopter" data-i18n="signup_btn">Registruotis</a>
+      </div>
     </div>
   </header>
 
   <main>
 
-    <!-- ===================== HERO ===================== -->
+    <!-- ============ HERO ============ -->
     <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-text reveal">
-          <span class="badge">🐾 Startuojame 2027 m. · Nieko nereikės atsisiųsti</span>
-          <h1>Rask savo augintinį – <span class="accent">arba suteik jam laikiną globą</span></h1>
-          <p class="lead">Augintimus – programėlė, kuri veikia tiesiog naršyklėje, be jokio atsisiuntimo. Ji suveda prieglaudų gyvūnus su žmonėmis, ieškančiais draugo. Spausk ♥, jei gyvūnas patinka, o prieglauda įvertins, ar jam tinkate. Kai abu pasakote „taip“ – tai atitikimas!</p>
-          <div class="hero-buttons">
-            <a href="#registracija" class="btn" data-choice="adopter">Išankstinė registracija</a>
-            <a href="#kaip-veikia" class="btn btn-ghost">Kaip tai veikia?</a>
+      <div class="wrap hero-inner">
+        <div class="hero-text">
+          <h1 data-i18n="hero_title">Susipažink su gyvūnu, kuris laukia būtent tavęs</h1>
+          <p class="hero-lead" data-i18n="hero_lead">Augintimus – tai pažinčių programėlė prieglaudų šunims ir katėms. Tu spaudi ♥, prieglauda patvirtina, kad tinkate vienas kitam, ir augintinis gali tapti Tavo.</p>
+          <div class="hero-cta">
+            <a href="#registracija" class="btn btn-plum" data-choice="adopter" data-i18n="signup_btn">Registruotis</a>
+            <p class="hero-note" data-i18n="hero_note">Startuojame 2027 m.<br>Veiks naršyklėje – nieko nereikės atsisiųsti.</p>
           </div>
-          <p class="hint">Išbandyk dešinėje 👉 spausk ✕ arba ♥</p>
         </div>
 
-        <!-- Interaktyvi demo kortelė -->
-        <div class="hero-phone reveal">
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-screen">
-              <div class="app-top">
-                <span class="app-title">Augintimus</span>
-                <span class="app-likes">♥ <b id="likeCount">0</b></span>
-              </div>
-              <div class="card-stack" id="cardStack" aria-live="polite"></div>
-              <div class="card-actions">
-                <button class="round-btn no" id="btnNo" aria-label="Ne">✕</button>
-                <button class="round-btn yes" id="btnYes" aria-label="Patinka">♥</button>
-              </div>
+        <!-- Interaktyvi kortelių kaladė -->
+        <div class="deck-area">
+          <div class="deck" id="deck" tabindex="0" aria-label="Demonstracinės gyvūnų kortelės. Rodyklės kairėn ir dešinėn pasirenka." data-i18n-attr="aria-label:a_deck"></div>
+
+          <div class="match" id="match" hidden>
+            <p class="match-title" data-i18n="match_title">Atitikimas!</p>
+            <p class="match-text" id="matchText"></p>
+            <button class="btn btn-tangerine btn-small" id="matchClose" data-i18n="match_close">Žiūrėti toliau</button>
+          </div>
+
+          <div class="deck-buttons">
+            <button class="round-btn no" id="btnNo" aria-label="Ne šįkart" data-i18n-attr="aria-label:a_no">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
+            </button>
+            <button class="round-btn yes" id="btnYes" aria-label="Patinka" data-i18n-attr="aria-label:a_yes">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.5 4.5 7 4.5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.5 0 5.6 3.5 4.3 6.8-1.8 4.6-9.3 9.2-9.3 9.2z" fill="currentColor"/></svg>
+            </button>
+          </div>
+          <p class="deck-status" id="deckStatus" aria-live="polite" data-i18n="status_initial">Tempk kortelę į šonus arba spausk mygtukus.</p>
+          <p class="deck-demo" data-i18n="deck_demo">Demonstracinės kortelės</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KAIP VEIKIA ============ -->
+    <section class="how" id="kaip-veikia">
+      <div class="wrap">
+        <h2 data-i18n="how_title">Kaip tai veiks</h2>
+        <ol class="how-steps">
+          <li>
+            <span class="how-num">1</span>
+            <h3 data-i18n="s1_t">Papasakok apie save</h3>
+            <p data-i18n="s1_p">Užpildyk trumpą klausimyną apie save, kad prieglaudos galėtų matyti Tavo profilį.</p>
+          </li>
+          <li>
+            <span class="how-num">2</span>
+            <h3 data-i18n="s2_t">Rinkis augintinį</h3>
+            <p data-i18n="s2_p">Peržiūrėk prieglaudų šunis ir kates. Jei gyvūnėlis patiko, spausk ♥.</p>
+          </li>
+          <li>
+            <span class="how-num">3</span>
+            <h3 data-i18n="s3_t">Prieglaudos patvirtinimas</h3>
+            <p data-i18n="s3_p">Jei ir prieglauda mano, kad esi tinkamas patikusiam augintiniui, gauni jos kontaktus ir darbo laiką. Lieka tik susitikti.</p>
+          </li>
+        </ol>
+        <p class="how-foster" data-i18n="foster">Nori padėti, bet negali priglausti visam laikui? Rinkis <b>laikiną globą</b> – prieglaudoms jos labai reikia.</p>
+      </div>
+    </section>
+
+    <!-- ============ SKAIČIAI ============ -->
+    <section class="numbers">
+      <div class="wrap">
+        <p class="numbers-text" data-i18n="numbers">Šiandien Lietuvos prieglaudose namų laukia <span class="num">beveik 1000</span> šunų ir kačių. Pusė jų čia gyvena jau bent <span class="num">3 mėnesius</span>, o beveik kas trečias – ilgiau nei <span class="num">pusę metų</span>.</p>
+        <p class="numbers-note" data-i18n="numbers_note">Ir tai tik gyvūnai, kuriuos prieglaudos skelbia internete.</p>
+        <p class="numbers-source" data-i18n="numbers_source">Šaltinis: <a href="https://globok.lt/duomenys" target="_blank" rel="noopener">Globok.lt, „Lietuvos gyvūnų prieglaudų duomenys“</a>, 2026 m. (<a href="https://creativecommons.org/licenses/by/4.0/deed.lt" target="_blank" rel="noopener">CC BY 4.0</a>)</p>
+      </div>
+    </section>
+
+    <!-- ============ TELEFONE / BE ATSISIUNTIMO ============ -->
+    <section class="phone-sec" id="telefone">
+      <div class="wrap phone-inner">
+        <div class="phone-text">
+          <h2 data-i18n="phone_title">Naudokis telefone ar kompiuteryje</h2>
+          <p class="phone-lead" data-i18n="phone_lead">Augintimus veiks naršyklėje bet kuriame telefone ar kompiuteryje.</p>
+
+          <div class="howto">
+            <h3 data-i18n="howto_title">Nori ikonėlės ekrane, kaip tikros programėlės?</h3>
+            <div class="os-tabs" role="tablist">
+              <button class="os-btn active" data-os="ios" role="tab">iPhone</button>
+              <button class="os-btn" data-os="android" role="tab">Android</button>
             </div>
-            <div class="match-pop" id="matchPop">♥ Patinka!</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== PROBLEMA ===================== -->
-    <section class="section problem">
-      <div class="container">
-        <h2 class="reveal">Jie laukia ilgiau, nei atrodo</h2>
-        <p class="section-lead reveal">Lietuvos prieglaudos perpildytos – ir dažnai nebegali priimti naujų gyvūnų, kol esantys neranda namų.</p>
-        <div class="stats">
-          <div class="stat reveal">
-            <div class="stat-number"><span class="count" data-target="992">0</span></div>
-            <p>gyvūnai šiuo metu laukia namų prieglaudose</p>
-          </div>
-          <div class="stat reveal">
-            <div class="stat-number"><span class="count" data-target="3">0</span> mėn.</div>
-            <p>bent tiek prieglaudoje praleido pusė jų</p>
-          </div>
-          <div class="stat reveal">
-            <div class="stat-number"><span class="count" data-target="32">0</span>%</div>
-            <p>laukia ilgiau nei pusę metų</p>
-          </div>
-        </div>
-        <p class="source reveal">Ir tai tik gyvūnai, kuriuos prieglaudos skelbia internete – tikrasis skaičius didesnis.<br>
-          Šaltinis: <a href="https://globok.lt/duomenys" target="_blank" rel="noopener">Globok.lt, „Lietuvos gyvūnų prieglaudų duomenys“</a>, 2026 m. spalio 3 d. (licencija <a href="https://creativecommons.org/licenses/by/4.0/deed.lt" target="_blank" rel="noopener">CC BY 4.0</a>).</p>
-      </div>
-    </section>
-
-    <!-- ===================== ISTORIJA ===================== -->
-    <section class="section story">
-      <div class="container story-inner reveal">
-        <div class="story-emoji">🐱🏠🐶</div>
-        <div>
-          <h2>Kodėl kuriame Augintimus</h2>
-          <p>Abu su sužadėtiniu savo augintinius parsivežėme iš prieglaudų ir šiandien neįsivaizduojame gyvenimo be jų. Tačiau matome, kaip prieglaudos kasdien perpildytos, kiek gyvūnų laukia namų ir kaip dažnai prieglaudos nebegali priimti naujų.</p>
-          <p>Norime apie tai kalbėti garsiau – ir smagiau. Augintimus kuriame tam, kad gyvūno iš prieglaudos paieška būtų tokia pat lengva ir maloni, kaip naršymas telefone, ir kad daugiau žmonių pagalvotų: „O gal mano kitas draugas laukia prieglaudoje?“</p>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== KAIP VEIKIA ===================== -->
-    <section class="section" id="kaip-veikia">
-      <div class="container">
-        <h2 class="reveal">Kaip tai veiks?</h2>
-        <p class="section-lead reveal">Keturi paprasti žingsniai nuo programėlės atsidarymo iki susitikimo su nauju draugu.</p>
-        <div class="steps">
-          <div class="step reveal">
-            <div class="step-num">1</div>
-            <h3>Atsidaryk ir prisijunk</h3>
-            <p>Atsidaryk augintimus.lt telefone ar kompiuteryje, prisijunk ir nurodyk, ko ieškai: priglausti gyvūną, tapti laikinuoju globėju ar tiesiog pasidairyti.</p>
-          </div>
-          <div class="step reveal">
-            <div class="step-num">2</div>
-            <h3>Atsakyk į kelis klausimus</h3>
-            <p>Būstas, vaikai, kiti gyvūnai – atsakai vieną kartą, o prieglaudos iškart mato, kokie tavo namai.</p>
-          </div>
-          <div class="step reveal">
-            <div class="step-num">3</div>
-            <h3>Rinkis gyvūnus</h3>
-            <p>Peržiūrėk prieglaudų gyvūnus po vieną ir spausk ✕ arba ♥.</p>
-          </div>
-          <div class="step reveal">
-            <div class="step-num">4</div>
-            <h3>Atitikimas!</h3>
-            <p>Jei ir prieglauda mano, kad tinkate vienas kitam, gauni jos kontaktus ir darbo laiką.</p>
-          </div>
-        </div>
-        <div class="center reveal">
-          <p class="section-lead">Kol programėlė kuriama – užsiregistruok ir pranešime, kai startuosime.</p>
-          <a href="#registracija" class="btn" data-choice="adopter">Noriu sužinoti pirmas(-a)</a>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ===================== BE ATSISIUNTIMO ===================== -->
-    <section class="section web-app" id="be-atsisiuntimo">
-      <div class="container">
-        <h2 class="reveal">Nieko nereikia atsisiųsti</h2>
-        <p class="section-lead reveal">Augintimus veiks tiesiog naršyklėje – kaip įprasta svetainė, tik atrodys ir veiks kaip programėlė.</p>
-        <div class="web-points">
-          <div class="web-point reveal">
-            <div class="benefit-icon">📱</div>
-            <h3>Bet kuriame įrenginyje</h3>
-            <p>iPhone, Android ar kompiuteris – užtenka atsidaryti augintimus.lt.</p>
-          </div>
-          <div class="web-point reveal">
-            <div class="benefit-icon">💾</div>
-            <h3>Neužima vietos</h3>
-            <p>Jokių parduotuvių, atnaujinimų ir užimtos telefono atminties.</p>
-          </div>
-          <div class="web-point reveal">
-            <div class="benefit-icon">🏠</div>
-            <h3>Ikonėlė ekrane – jei nori</h3>
-            <p>Pridėk prie pradžios ekrano ir Augintimus atsidarys vienu paspaudimu, kaip bet kuri kita programėlė.</p>
+            <ol class="os-steps" data-os-steps="ios">
+              <li data-i18n="ios1">Atsidaryk <b>augintimus.lt</b> naršyklėje Safari.</li>
+              <li data-i18n="ios2">Apačioje spausk bendrinimo mygtuką (kvadratėlis su rodykle aukštyn).</li>
+              <li data-i18n="ios3">Pasirink <b>„Pridėti prie pradžios ekrano“</b> ir spausk <b>„Pridėti“</b>.</li>
+            </ol>
+            <ol class="os-steps" data-os-steps="android" hidden>
+              <li data-i18n="and1">Atsidaryk <b>augintimus.lt</b> naršyklėje Chrome.</li>
+              <li data-i18n="and2">Viršuje dešinėje spausk ⋮ (trys taškai).</li>
+              <li data-i18n="and3">Pasirink <b>„Įdiegti programą“</b> arba <b>„Pridėti prie pradžios ekrano“</b>.</li>
+            </ol>
+            <p class="howto-note" data-i18n="howto_note">Nebūtina – viskas veiks ir tiesiog naršyklėje.</p>
           </div>
         </div>
 
-        <div class="howto reveal">
-          <h3>Kaip pridėti prie pradžios ekrano?</h3>
-          <div class="os-tabs">
-            <button class="os-btn active" data-os="ios">iPhone (Safari)</button>
-            <button class="os-btn" data-os="android">Android (Chrome)</button>
-          </div>
-          <ol class="os-steps" data-os-steps="ios">
-            <li>Atsidaryk <b>augintimus.lt</b> naršyklėje Safari.</li>
-            <li>Apačioje spausk bendrinimo mygtuką <span class="key">⬆︎</span> (kvadratėlis su rodykle).</li>
-            <li>Pasirink <b>„Pridėti prie pradžios ekrano“</b>.</li>
-            <li>Spausk <b>„Pridėti“</b> – ikonėlė atsiras tarp kitų programėlių.</li>
-          </ol>
-          <ol class="os-steps" data-os-steps="android" hidden>
-            <li>Atsidaryk <b>augintimus.lt</b> naršyklėje Chrome.</li>
-            <li>Viršuje dešinėje spausk <span class="key">⋮</span> (trys taškai).</li>
-            <li>Pasirink <b>„Įdiegti programą“</b> arba <b>„Pridėti prie pradžios ekrano“</b>.</li>
-            <li>Patvirtink – ikonėlė atsiras tarp kitų programėlių.</li>
-          </ol>
-          <p class="howto-note">Tai nebūtina – Augintimus veiks ir tiesiog atsidarius naršyklėje.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== EKRANAI ===================== -->
-    <section class="section screens-section">
-      <div class="container">
-        <h2 class="reveal">Žvilgsnis į programėlę</h2>
-        <p class="section-lead reveal">Ankstyvi programėlės eskizai – galutinis variantas gali šiek tiek skirtis.</p>
-        <div class="screens" id="screens">
-          <figure class="screen reveal">
-            <div class="phone phone-static">
-              <div class="phone-notch"></div>
-              <div class="phone-screen">
-                <img src="images/kortele.png" alt="Gyvūno kortelė programėlėje"
-                     onerror="this.hidden=true; this.nextElementSibling.hidden=false">
-                <div class="placeholder" hidden>Čia bus gyvūno kortelės ekranas<br><small>images/kortele.png</small></div>
-              </div>
-            </div>
-            <figcaption>Gyvūno kortelė – ✕ arba ♥</figcaption>
+        <div class="phones">
+          <figure class="phone phone-back">
+            <img src="images/atitikimas.png" alt="Atitikimo ekranas: gauni prieglaudos kontaktus" data-i18n-attr="alt:alt_match"
+                 onerror="this.hidden=true; this.nextElementSibling.hidden=false">
+            <div class="phone-placeholder" hidden data-i18n="ph_match">Atitikimo ekranas<small>images/atitikimas.png</small></div>
           </figure>
-          <figure class="screen reveal">
-            <div class="phone phone-static">
-              <div class="phone-notch"></div>
-              <div class="phone-screen">
-                <img src="images/atitikimas.png" alt="Atitikimo ekranas programėlėje"
-                     onerror="this.hidden=true; this.nextElementSibling.hidden=false">
-                <div class="placeholder" hidden>Čia bus atitikimo ekranas<br><small>images/atitikimas.png</small></div>
-              </div>
-            </div>
-            <figcaption>Atitikimas – gauni prieglaudos kontaktus</figcaption>
+          <figure class="phone phone-front">
+            <img src="images/kortele.png" alt="Gyvūno kortelė su ✕ ir ♥ mygtukais" data-i18n-attr="alt:alt_card"
+                 onerror="this.hidden=true; this.nextElementSibling.hidden=false">
+            <div class="phone-placeholder" hidden data-i18n="ph_card">Gyvūno kortelė<small>images/kortele.png</small></div>
           </figure>
         </div>
-        <div class="dots" id="screenDots"></div>
       </div>
     </section>
 
-    <!-- ===================== PRIEGLAUDOMS ===================== -->
-    <section class="section shelters" id="prieglaudoms">
-      <div class="container">
-        <h2 class="reveal">Prieglaudoms</h2>
-        <p class="section-lead reveal">Ieškome pirmųjų prieglaudų, kurios norėtų prisijungti prie Augintimus nuo pat pradžių.</p>
-        <div class="benefits">
-          <div class="benefit reveal">
-            <div class="benefit-icon">✅</div>
-            <h3>Atrinkti kandidatai</h3>
-            <p>Prieš susisiekdami matote žmogaus atsakymus apie būstą, vaikus ir kitus gyvūnus – ir patys sprendžiate, ar jis tinka.</p>
-          </div>
-          <div class="benefit reveal">
-            <div class="benefit-icon">📝</div>
-            <h3>Paprasta pradžia</h3>
-            <p>Jokių sudėtingų sistemų – gyvūno profilį sukursite užpildę trumpą formą.</p>
-          </div>
-          <div class="benefit reveal">
-            <div class="benefit-icon">📣</div>
-            <h3>Nauja auditorija</h3>
-            <p>Jūsų gyvūnus pamatys žmonės, kurie galbūt dar niekada nesilankė prieglaudos svetainėje.</p>
-          </div>
-          <div class="benefit reveal">
-            <div class="benefit-icon">🏡</div>
-            <h3>Laikinieji globėjai</h3>
-            <p>Galimybė rasti ne tik naujus šeimininkus, bet ir laikinus namus, kai vietų trūksta.</p>
-          </div>
-        </div>
-        <div class="center reveal">
-          <a href="#registracija" class="btn" data-choice="shelter">Domina – noriu prisijungti</a>
+    <!-- ============ ISTORIJA ============ -->
+    <section class="story">
+      <div class="wrap story-inner">
+        <img class="story-photo" src="images/musu-augintiniai.jpg" alt="Mūsų augintiniai iš prieglaudos" data-i18n-attr="alt:alt_story"
+             onerror="this.remove()">
+        <div class="story-text">
+          <h2 data-i18n="story_title">Kodėl kuriame Augintimus</h2>
+          <p data-i18n="story_p1">Abu su sužadėtiniu savo augintinius parsivežėme iš prieglaudų ir šiandien neįsivaizduojame gyvenimo be jų. Tačiau matome, kaip prieglaudos kasdien perpildytos, kiek gyvūnų laukia namų ir kaip dažnai prieglaudos nebegali priimti naujų gyvūnėlių.</p>
+          <p data-i18n="story_p2">Norime apie tai kalbėti garsiau – ir smagiau. Kad gyvūno iš prieglaudos paieška būtų tokia pat lengva kaip naršymas telefone, ir kad daugiau žmonių pagalvotų: „O gal mano būsimas geriausias draugas laukia prieglaudoje?“</p>
         </div>
       </div>
     </section>
 
-    <!-- ===================== DUK ===================== -->
-    <section class="section" id="duk">
-      <div class="container narrow">
-        <h2 class="reveal">Dažniausi klausimai</h2>
+    <!-- ============ PRIEGLAUDOMS ============ -->
+    <section class="shelters" id="prieglaudoms">
+      <div class="wrap shelters-inner">
+        <div class="shelters-head">
+          <h2 data-i18n="shelters_title">Prieglaudoms</h2>
+          <p data-i18n="shelters_lead">Ieškome pirmųjų prieglaudų, kurios norėtų prisijungti nuo pat pradžių. <b>Prieglaudoms tai nieko nekainuoja, ir mainais nieko neprašome</b> – tik šiek tiek jūsų laiko.</p>
+          <a href="#registracija" class="btn btn-plum" data-choice="shelter" data-i18n="shelter_btn">Registruoti prieglaudą</a>
+        </div>
+        <ul class="shelters-list">
+          <li>
+            <h3 data-i18n="b1_t">Patys renkatės būsimus šeimininkus</h3>
+            <p data-i18n="b1_p">Prieš susisiekdami matote atsakymus apie būstą, vaikus ir kitus gyvūnus. Kontaktai atsiveria tik jums patvirtinus.</p>
+          </li>
+          <li>
+            <h3 data-i18n="b2_t">Gyvūno profilis per kelias minutes</h3>
+            <p data-i18n="b2_p">Užpildote trumpą formą – jokių naujų sistemų mokytis nereikia.</p>
+          </li>
+          <li>
+            <h3 data-i18n="b3_t">Nauji žmonės</h3>
+            <p data-i18n="b3_p">Jūsų gyvūnus pamatys ir tie, kurie galbūt net nebūtų susimąstę imti augintinį iš prieglaudos.</p>
+          </li>
+          <li>
+            <h3 data-i18n="b4_t">Laikinieji globėjai</h3>
+            <p data-i18n="b4_p">Rasite ne tik naujus šeimininkus, bet ir laikinus namus, kai vietų trūksta.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ DUK ============ -->
+    <section class="faq-sec" id="duk">
+      <div class="wrap faq-inner">
+        <h2 data-i18n="faq_title">Dažni klausimai</h2>
         <div class="faq">
-          <details class="reveal">
-            <summary>Kas yra Augintimus?</summary>
-            <p>Tai kuriama programėlė, kuri padės prieglaudų gyvūnams rasti namus ar laikinus globėjus. Gyvūnus peržiūri po vieną ir pažymi, kurie patinka, o prieglauda įvertina, ar tinkate. Kontaktai atsiveria tik abiem pusėms pasakius „taip“.</p>
+          <details>
+            <summary data-i18n="q1">Kas yra Augintimus?</summary>
+            <p data-i18n="a1">Kuriama programėlė, padėsianti prieglaudų gyvūnams rasti namus ar laikinus globėjus. Gyvūnus peržiūri po vieną ir pažymi, kurie patinka, o prieglauda įvertina, ar tinkate. Kontaktai atsiveria tik abiem pusėms pasakius „taip“.</p>
           </details>
-          <details class="reveal">
-            <summary>Kada programėlė bus prieinama?</summary>
-            <p>Planuojame startuoti 2027 m. Užsiregistravę iš anksto sužinosite apie tai pirmieji.</p>
+          <details>
+            <summary data-i18n="q2">Ar reikės ką nors atsisiųsti?</summary>
+            <p data-i18n="a2">Ne. Augintimus veiks naršyklėje bet kuriame telefone ar kompiuteryje. Jei norėsite, galėsite pridėti ikonėlę prie pradžios ekrano – <a href="#telefone">štai kaip</a>.</p>
           </details>
-          <details class="reveal">
-            <summary>Ar reikės atsisiųsti programėlę?</summary>
-            <p>Ne. Augintimus veiks naršyklėje bet kuriame telefone ar kompiuteryje. Jei norėsite, galėsite pridėti ikonėlę prie telefono pradžios ekrano – <a href="#be-atsisiuntimo">štai kaip</a>.</p>
+          <details>
+            <summary data-i18n="q3">Kada galėsiu išbandyti?</summary>
+            <p data-i18n="a3">Planuojame startuoti 2027 m. Užsiregistravę sužinosite pirmieji.</p>
           </details>
-          <details class="reveal">
-            <summary>Ar galiu tapti laikinuoju globėju, o ne priglausti visam laikui?</summary>
-            <p>Taip! Kurdami profilį galėsite pasirinkti priglaudimą, laikiną globą arba abu variantus.</p>
+          <details>
+            <summary data-i18n="q4">Ar galiu tapti laikinuoju globėju?</summary>
+            <p data-i18n="a4">Taip. Profilyje galėsite pasirinkti priglaudimą, laikiną globą arba abu.</p>
           </details>
-          <details class="reveal">
-            <summary>Kodėl prieglauda turi patvirtinti mane?</summary>
-            <p>Prieglaudos geriausiai pažįsta savo gyvūnus. Toks abipusis pasirinkimas padeda išvengti situacijų, kai gyvūnas grįžta atgal į prieglaudą, o jums – sutaupyti laiko.</p>
+          <details>
+            <summary data-i18n="q5">Kodėl prieglauda turi mane patvirtinti?</summary>
+            <p data-i18n="a5">Prieglaudos geriausiai pažįsta savo gyvūnus. Abipusis pasirinkimas padeda išvengti situacijų, kai gyvūnas grįžta atgal, o jums sutaupo laiko.</p>
           </details>
-          <details class="reveal">
-            <summary>Esame prieglauda – kaip prisijungti?</summary>
-            <p>Užpildykite trumpą formą <a href="#registracija" data-choice="shelter">registracijos skiltyje</a>, pasirinkę „Esame prieglauda“. Susisieksime ir viską aptarsime.</p>
+          <details>
+            <summary data-i18n="q6">Kiek tai kainuos?</summary>
+            <p data-i18n="a6">Nieko – nei žmonėms, nei prieglaudoms.</p>
           </details>
-          <details class="reveal">
-            <summary>Kokius mano duomenis renkate?</summary>
-            <p>Išankstinei registracijai – tik el. pašto adresą (prieglaudoms – ir pavadinimą bei telefoną). Naudojame juos tik tam, kad praneštume apie startą. Daugiau – <a href="#" class="open-privacy">privatumo informacijoje</a>.</p>
+          <details>
+            <summary data-i18n="q7">Kokius mano duomenis renkate?</summary>
+            <p data-i18n="a7">Registruojantis – tik el. paštą (prieglaudoms – ir pavadinimą bei telefoną). Naudojame juos tik tam, kad praneštume apie startą. Daugiau – <a href="#" class="open-privacy">privatumo informacijoje</a>.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- ===================== REGISTRACIJA ===================== -->
-    <section class="section signup" id="registracija">
-      <div class="container narrow">
-        <h2 class="reveal">Išankstinė registracija</h2>
-        <p class="section-lead reveal">Pasirinkite, kas esate:</p>
-
-        <div class="choice reveal" role="tablist">
-          <button class="choice-btn active" data-tab="adopter" role="tab">🐶 Noriu įsiglobinti augintinį</button>
-          <button class="choice-btn" data-tab="shelter" role="tab">🏠 Esame prieglauda</button>
-        </div>
-
-        <div class="form-card reveal">
-          <!-- Forma žmonėms -->
-          <form id="form-adopter" class="signup-form" data-type="adopter">
-            <p class="form-intro">Palikite el. paštą – pranešime, kai Augintimus startuos.</p>
-            <label>El. paštas
-              <input type="email" name="email" required placeholder="vardas@pastas.lt">
-            </label>
-            <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off">
-            <label class="consent">
-              <input type="checkbox" name="consent" required>
-              <span>Sutinku, kad mano el. pašto adresas būtų naudojamas pranešti apie Augintimus startą. <a href="#" class="open-privacy">Privatumas</a></span>
-            </label>
-            <button type="submit" class="btn btn-full">Registruotis</button>
-          </form>
-
-          <!-- Forma prieglaudoms -->
-          <form id="form-shelter" class="signup-form" data-type="shelter" hidden>
-            <p class="form-intro">Palikite kontaktus – susisieksime ir aptarsime prisijungimą.</p>
-            <label>Prieglaudos pavadinimas
-              <input type="text" name="name" required placeholder="VšĮ ...">
-            </label>
-            <label>El. paštas
-              <input type="email" name="email" required placeholder="info@prieglauda.lt">
-            </label>
-            <label>Telefono numeris
-              <input type="tel" name="phone" required placeholder="+370 6xx xxxxx">
-            </label>
-            <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off">
-            <label class="consent">
-              <input type="checkbox" name="consent" required>
-              <span>Sutinku, kad šie duomenys būtų naudojami susisiekti dėl prisijungimo prie Augintimus. <a href="#" class="open-privacy">Privatumas</a></span>
-            </label>
-            <button type="submit" class="btn btn-full">Siųsti</button>
-          </form>
-
-          <!-- Padėka -->
-          <div class="thanks" id="thanks" hidden>
-            <div class="thanks-icon">🐾</div>
-            <h3>Ačiū!</h3>
-            <p id="thanksText">Pranešime, kai startuosime.</p>
-            <button class="btn btn-ghost" id="againBtn">Registruoti kitą</button>
+    <!-- ============ REGISTRACIJA ============ -->
+    <section class="signup" id="registracija">
+      <div class="wrap">
+        <div class="signup-block">
+          <div class="ears" aria-hidden="true">
+            <svg class="ear ear-left" viewBox="0 0 96 58" preserveAspectRatio="none"><path class="fill" d="M0 61 L30 3 Q33 -1 37 2 L96 61 Z"/><path class="line" d="M1.5 58 L30 3 Q33 -1 37 2 L94 58"/></svg>
+            <svg class="ear ear-right" viewBox="0 0 96 58" preserveAspectRatio="none"><path class="fill" d="M0 61 L30 3 Q33 -1 37 2 L96 61 Z"/><path class="line" d="M1.5 58 L30 3 Q33 -1 37 2 L94 58"/></svg>
           </div>
-          <p class="form-error" id="formError" hidden>Nepavyko išsiųsti. Pabandykite dar kartą arba parašykite mums el. paštu.</p>
+          <div class="signup-head">
+            <h2 data-i18n="signup_title">Užsirašyk į laukiančiųjų sąrašą</h2>
+            <p data-i18n="signup_lead">Palik kontaktus ir pranešime, kai Augintimus bus paruoštas.</p>
+          </div>
+
+          <div class="signup-body">
+            <div class="choice" role="tablist">
+              <button class="choice-btn active" data-tab="adopter" role="tab" data-i18n="tab_adopter">Ieškau augintinio</button>
+              <button class="choice-btn" data-tab="shelter" role="tab" data-i18n="tab_shelter">Esame prieglauda</button>
+            </div>
+
+            <form id="form-adopter" class="signup-form" data-type="adopter">
+              <label><span data-i18n="email_label">El. paštas</span>
+                <input type="email" name="email" required placeholder="vardas@pastas.lt" data-i18n-attr="placeholder:pl_email" autocomplete="email">
+              </label>
+              <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <label class="consent">
+                <input type="checkbox" name="consent" required>
+                <span data-i18n="consent_adopter">Sutinku, kad mano el. paštas būtų naudojamas pranešti apie Augintimus startą. <a href="#" class="open-privacy">Privatumas</a></span>
+              </label>
+              <button type="submit" class="btn btn-plum btn-full" data-i18n="signup_submit">Registruotis</button>
+            </form>
+
+            <form id="form-shelter" class="signup-form" data-type="shelter" hidden>
+              <label><span data-i18n="shelter_name_label">Prieglaudos pavadinimas</span>
+                <input type="text" name="name" required placeholder="VšĮ ..." autocomplete="organization">
+              </label>
+              <label><span data-i18n="email_label">El. paštas</span>
+                <input type="email" name="email" required placeholder="info@prieglauda.lt" data-i18n-attr="placeholder:pl_shelter_email" autocomplete="email">
+              </label>
+              <label><span data-i18n="phone_label">Telefono numeris</span>
+                <input type="tel" name="phone" required placeholder="+370 6xx xxxxx" autocomplete="tel">
+              </label>
+              <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <label class="consent">
+                <input type="checkbox" name="consent" required>
+                <span data-i18n="consent_shelter">Sutinku, kad šie duomenys būtų naudojami susisiekti dėl prisijungimo prie Augintimus. <a href="#" class="open-privacy">Privatumas</a></span>
+              </label>
+              <button type="submit" class="btn btn-plum btn-full" data-i18n="shelter_submit">Registruoti prieglaudą</button>
+            </form>
+
+            <div class="thanks" id="thanks" hidden>
+              <p class="thanks-title" data-i18n="thanks_title">Užregistruota!</p>
+              <p id="thanksText">Pranešime, kai startuosime.</p>
+              <button class="btn btn-ghost btn-small" id="againBtn" data-i18n="again">Registruoti dar vieną</button>
+            </div>
+            <p class="form-error" id="formError" hidden data-i18n="form_error">Nepavyko išsiųsti. Patikrinkite interneto ryšį ir bandykite dar kartą arba parašykite akbdarbas@gmail.com.</p>
+          </div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ===================== PORAŠTĖ ===================== -->
+  <!-- ============ PORAŠTĖ ============ -->
   <footer class="footer">
-    <div class="container footer-inner">
+    <div class="wrap footer-inner">
       <div>
-        <div class="brand brand-footer"><span>Augintimus</span></div>
-        <p>Kiekvienam gyvūnui – savi namai.</p>
+        <p class="footer-brand">Augintimus</p>
+        <p data-i18n="tagline">Kiekvienam gyvūnui – savi namai.</p>
       </div>
       <div>
-        <h4>Kontaktai</h4>
+        <p class="footer-title" data-i18n="f_contacts">Kontaktai</p>
         <p><a href="mailto:akbdarbas@gmail.com">akbdarbas@gmail.com</a></p>
       </div>
       <div>
-        <h4>Informacija</h4>
-        <p><a href="#" class="open-privacy">Privatumas</a></p>
-        <p class="small">Statistikos šaltinis: <a href="https://globok.lt/duomenys" target="_blank" rel="noopener">Globok.lt</a> (CC BY 4.0)</p>
+        <p class="footer-title" data-i18n="f_info">Informacija</p>
+        <p><a href="#" class="open-privacy" data-i18n="f_privacy">Privatumas</a></p>
+        <p class="footer-small" data-i18n="f_stats">Statistika: <a href="https://globok.lt/duomenys" target="_blank" rel="noopener">Globok.lt</a> (CC BY 4.0)</p>
       </div>
     </div>
     <p class="copyright">© <span id="year"></span> Augintimus</p>
   </footer>
 
-  <!-- ===================== PRIVATUMO LANGAS ===================== -->
+  <!-- ============ PRIVATUMO LANGAS ============ -->
   <dialog id="privacy">
-    <h3>Privatumo informacija</h3>
-    <p><b>Kokius duomenis renkame?</b> Išankstinei registracijai – el. pašto adresą. Prieglaudoms – pavadinimą, el. paštą ir telefono numerį.</p>
-    <p><b>Kam naudojame?</b> Tik tam, kad praneštume apie Augintimus startą arba susisiektume dėl prieglaudos prisijungimo. Duomenų neperduodame tretiesiems asmenims ir nesiunčiame reklamos.</p>
-    <p><b>Kur saugome?</b> Duomenys saugomi „Google“ skaičiuoklėje, prie kurios prieigą turi tik Augintimus komanda.</p>
-    <p><b>Kiek laiko?</b> Iki programėlės starto arba kol paprašysite juos ištrinti.</p>
-    <p><b>Jūsų teisės.</b> Bet kada galite paprašyti peržiūrėti ar ištrinti savo duomenis, parašę <a href="mailto:akbdarbas@gmail.com">akbdarbas@gmail.com</a>.</p>
-    <button class="btn" id="closePrivacy">Supratau</button>
+    <h3 data-i18n="pr_title">Privatumo informacija</h3>
+    <p data-i18n="pr1"><b>Kokius duomenis renkame?</b> Registruojantis – el. pašto adresą. Prieglaudoms – pavadinimą, el. paštą ir telefono numerį.</p>
+    <p data-i18n="pr2"><b>Kam naudojame?</b> Tik tam, kad praneštume apie Augintimus startą arba susisiektume dėl prieglaudos prisijungimo. Duomenų neperduodame tretiesiems asmenims ir nesiunčiame reklamos.</p>
+    <p data-i18n="pr3"><b>Kur saugome?</b> „Google“ skaičiuoklėje, prie kurios prieigą turi tik Augintimus komanda.</p>
+    <p data-i18n="pr4"><b>Kiek laiko?</b> Iki programėlės starto arba kol paprašysite ištrinti.</p>
+    <p data-i18n="pr5"><b>Jūsų teisės.</b> Bet kada galite paprašyti peržiūrėti ar ištrinti savo duomenis, parašę <a href="mailto:akbdarbas@gmail.com">akbdarbas@gmail.com</a>.</p>
+    <button class="btn btn-plum btn-small" id="closePrivacy" data-i18n="pr_close">Supratau</button>
   </dialog>
 
+  <script src="config.js"></script>
+  <script src="lang.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
